@@ -1,4 +1,5 @@
 #include "rotate.h"
+#include "Node.h"
 #include <stdio.h>
 
 /**

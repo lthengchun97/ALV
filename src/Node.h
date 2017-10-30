@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 
+
 typedef struct Node Node;
 struct Node{
   Node *left;                       //Must be a pointer because its pointing to another Node
