@@ -1,6 +1,7 @@
 #include "addnode.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "rotate.h"
 
 
 //add a new node
@@ -15,13 +16,21 @@ Node *addNode(Node **rootPtr, Node *nodeToAdd)
       if (nodeToAdd->data < (*rootPtr)->data)
       {
         (*rootPtr)->left = addNode(&(*rootPtr)->left,nodeToAdd);
+        (*rootPtr)->balanceFactor -= 1;
       }
       else if (nodeToAdd->data > (*rootPtr)->data)
       {
         (*rootPtr)->right = addNode(&(*rootPtr)->right,nodeToAdd);
+        (*rootPtr)->balanceFactor += 1;
       }
-      else
-        return *rootPtr;
+      }
+
+      if((*rootPtr)->balanceFactor >= 2)
+        avlBalanceRightTree(&(*rootPtr));
+      else if((*rootPtr)->balanceFactor <= -2)
+        avlBalanceLeftTree(&(*rootPtr));
+      else{
+        *rootPtr = *rootPtr;
       }
 
         return *rootPtr;

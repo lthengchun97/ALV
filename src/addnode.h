@@ -8,5 +8,6 @@
 Node *addNode(Node **rootPtr, Node *nodeToAdd);
 int avlBalanceRightTree(Node **rootPtr);
 int avlBalanceLeftTree(Node **rootPtr);
+Node *removeNode(Node **rootPtr, Node *nodeToRemove);
 
 #endif // _ADDNODE_H
