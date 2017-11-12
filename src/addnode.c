@@ -4,6 +4,48 @@
 #include "rotate.h"
 
 
+// add node with considering the height
+int addNodeWithHeight(Node **rootPtr, Node *nodeToAdd){
+  int height;
+    if (*rootPtr == NULL){
+        *rootPtr = nodeToAdd;
+        return height=1;
+      }
+    else{
+      if (nodeToAdd->data < (*rootPtr)->data)
+      {
+      height = addNodeWithHeight(&(*rootPtr)->left,nodeToAdd);
+        if(height==1){
+        (*rootPtr)->balanceFactor -= 1;
+          if((*rootPtr)->balanceFactor==0)
+          height=0;
+        }
+      else
+      (*rootPtr)->balanceFactor =(*rootPtr)->balanceFactor;
+
+      }
+      else if (nodeToAdd->data > (*rootPtr)->data)
+      {
+      height = addNodeWithHeight(&(*rootPtr)->right,nodeToAdd);
+        if(height==1){
+        (*rootPtr)->balanceFactor += 1;
+          if((*rootPtr)->balanceFactor==0)
+            height=0;;
+          }
+        else
+          (*rootPtr)->balanceFactor =(*rootPtr)->balanceFactor;
+      }
+    }
+    if((*rootPtr)->balanceFactor >= 2)
+        avlBalanceRightTree(&(*rootPtr));
+    else if((*rootPtr)->balanceFactor <= -2)
+        avlBalanceLeftTree(&(*rootPtr));
+    else{
+       *rootPtr = *rootPtr;
+      }
+        return height;
+ }
+
 //add a new node
 Node *addNode(Node **rootPtr, Node *nodeToAdd)
 {
