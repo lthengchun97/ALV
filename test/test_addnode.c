@@ -43,7 +43,7 @@ void test_insert_right(void)
     Node *root = &node20;
     initNode(&node20,NULL,&node30,1);
 
-    root = addNode(&root,&node10);
+    addNode(&root,&node10);
     TEST_ASSERT_EQUAL_PTR(&node20,root);
     TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
     TEST_ASSERT_EQUAL_PTR(&node30,node20.right);

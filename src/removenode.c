@@ -4,117 +4,179 @@
 #include "rotate.h"
 #include <stdio.h>
 
-// remove a node
-Node *removeNode(Node **rootPtr, Node *nodeToRemove){
-  if (*rootPtr == nodeToRemove){
-      *rootPtr = NULL;
+//recursive remove node
+Node *removeN(Node **rootPtr, int nodeToRemove)
+ {
+   int height;
+   Node *removeN = removeN_Height(rootPtr, nodeToRemove, &height);
+   return removeN;
+  }
+
+Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height)
+   {
+     // height change return 1 , no height change return 0
+       if (*rootPtr == NULL)
+         {
+           return NULL;
+         }
+       else if ( nodeToRemove < (*rootPtr)->data ){
+           removeN_Height(&(*rootPtr)->left, nodeToRemove,height);
+           if(*height == 1)
+             (*rootPtr)->balanceFactor += 1;
+             if((*rootPtr)->balanceFactor != 0)
+             *height = 0;
+          }
+       else if ( nodeToRemove > (*rootPtr)->data ){
+            removeN_Height(&(*rootPtr)->right, nodeToRemove,height);
+            if(*height == 1)
+              (*rootPtr)->balanceFactor -= 1;
+              if((*rootPtr)->balanceFactor != 0)
+              *height = 0;
+           }
+       else
+       {
+           if( ( (*rootPtr)->left == NULL) || ( (*rootPtr)->right == NULL) )
+           {
+               Node *temp = (*rootPtr)->left ?  (*rootPtr)->left : (*rootPtr)->right;
+               if (temp == NULL)
+               {
+                   temp = *rootPtr;
+                   *rootPtr = NULL;
+                   *height = 1;
+               }
+               else
+               {
+                *rootPtr  = temp;
+                *height = 1;
+              }
+            }
+            else
+            {
+              Node* Rgrandchild = (*rootPtr)->right;
+              Node* nearestHighest = findnearest((*rootPtr)->right,height);
+
+
+              if(Rgrandchild->right != NULL)
+              {
+              nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor);
+              }
+              else
+              {
+              nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor) - 1;
+              }
+
+
+              if(*height == 0)
+                (*rootPtr)->balanceFactor -= 1;
+              else
+                (*rootPtr)->balanceFactor = (*rootPtr)->balanceFactor;
+
+
+
+              if(nearestHighest->right != NULL)
+              {
+                nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor);
+                nearestHighest->left = (*rootPtr)->left;
+                (*rootPtr) = nearestHighest;
+              }
+              else
+              {
+                //nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor);
+                nearestHighest->left = (*rootPtr)->left;
+                nearestHighest->right= (*rootPtr)->right;
+                (*rootPtr) = nearestHighest;
+              }
+              if((*rootPtr)->balanceFactor >= 2)
+                  avlBalanceRightTree(&(*rootPtr));
+              else if((*rootPtr)->balanceFactor <= -2)
+                  avlBalanceLeftTree(&(*rootPtr));
+              else{
+                 *rootPtr = *rootPtr;
+                }
+            }
+            return *rootPtr;
+       }
+       if((*rootPtr)->balanceFactor >= 2)
+           avlBalanceRightTree(&(*rootPtr));
+       else if((*rootPtr)->balanceFactor <= -2)
+           avlBalanceLeftTree(&(*rootPtr));
+       else{
+          *rootPtr = *rootPtr;
+         }
       return *rootPtr;
     }
-  if(nodeToRemove-> data >(*rootPtr)->data)
-  {
-    (*rootPtr)->right = removeNode(&(*rootPtr)->right,nodeToRemove);
-    (*rootPtr)->balanceFactor -= 1;
-  }
-  else if(nodeToRemove-> data <(*rootPtr)->data)
-  {
-    (*rootPtr)->left = removeNode(&(*rootPtr)->left,nodeToRemove);
-    (*rootPtr)->balanceFactor += 1;
+
+Node *findnearest(Node *rootPtr,int *height)
+ {
+    Node *temp;
+    Node *current = rootPtr->left;
+     if(current!=NULL){
+       if(current->left != NULL)
+          findnearest(rootPtr->left,height);
+      else{
+        if(rootPtr->right!=NULL)
+        {
+          if(current->right !=NULL){
+            rootPtr->left = current->right;
+            rootPtr->balanceFactor +=1;
+            current->right = NULL;
+            *height = 1;
+            if((rootPtr)->balanceFactor >= 2)
+                avlBalanceRightTree(&(rootPtr));
+            else if((rootPtr)->balanceFactor <= -2)
+                avlBalanceLeftTree(&(rootPtr));
+            else{
+               *rootPtr = *rootPtr;
+              }
+          }
+          else{
+            rootPtr->left = NULL;
+            rootPtr->balanceFactor +=1;
+            *height = 0;
+            if((rootPtr)->balanceFactor >= 2)
+                avlBalanceRightTree(&(rootPtr));
+            else if((rootPtr)->balanceFactor <= -2)
+                avlBalanceLeftTree(&(rootPtr));
+            else{
+               *rootPtr = *rootPtr;
+              }
+            }
+        return current;
+      }
+      else{
+        if(rootPtr->right!=NULL)
+        {
+          if(current->right !=NULL){
+            rootPtr->left = current->right;
+            rootPtr->balanceFactor +=1;
+            current->right = NULL;
+            *height = 1;
+            if((rootPtr)->balanceFactor >= 2)
+                avlBalanceRightTree(&(rootPtr));
+            else if((rootPtr)->balanceFactor <= -2)
+                avlBalanceLeftTree(&(rootPtr));
+            else{
+               *rootPtr = *rootPtr;
+              }
+          }
+          else{
+            rootPtr->left = NULL;
+            rootPtr->balanceFactor +=1;
+            *height = 1;
+            if((rootPtr)->balanceFactor >= 2)
+                avlBalanceRightTree(&(rootPtr));
+            else if((rootPtr)->balanceFactor <= -2)
+                avlBalanceLeftTree(&(rootPtr));
+            else{
+               *rootPtr = *rootPtr;
+              }
+            }
+        return current;
+      }
+      }
+      }
   }
   else
-    return *rootPtr;
-    if((*rootPtr)->balanceFactor >= 2)
-      avlBalanceRightTree(&(*rootPtr));
-    else if((*rootPtr)->balanceFactor <= -2)
-      avlBalanceLeftTree(&(*rootPtr));
-    else{
-      *rootPtr = *rootPtr;
-    }
-   return *rootPtr;
-}
-
-int avlBalanceRightTree(Node **rootPtr){
-  int bf;
-  Node *node = *rootPtr;
-  Node *child = node->right;
-  Node *grandchild = node->right->left;
-  if((bf = child->balanceFactor)==-1)
-  {
-    if((bf = grandchild->balanceFactor)==0)
-    {
-      node->balanceFactor = 0;
-      child->balanceFactor = 0;
-      grandchild->balanceFactor = 0;
-    }
-    else if((bf = grandchild->balanceFactor)==1)
-    {
-      node->balanceFactor = -1;
-      child->balanceFactor = 0;
-      grandchild->balanceFactor = 0;
-    }
-    else if((bf = grandchild->balanceFactor)==-1)
-    {
-      node->balanceFactor = 0;
-      child->balanceFactor = 1;
-      grandchild->balanceFactor = 0;
-    }
-   *rootPtr = rotateRightLeft(*rootPtr);
-   return 0;
-   }
-
-  if((bf = child->balanceFactor)==0)
-  {
-    node->balanceFactor = 1;
-    child->balanceFactor = -1;
-  }
-  else if((bf = child->balanceFactor)==1)
-  {
-    node->balanceFactor = 0;
-    child->balanceFactor = 0;
-  }
-  *rootPtr = rotateLeft(*rootPtr);
-
-  return 0;
+     *height = 0;
+     return rootPtr;
  }
-
-
-int avlBalanceLeftTree(Node **rootPtr){
-  int bf;
-  Node *node = *rootPtr;
-  Node *child = node->left;
-  Node *grandchild = node->left->right;
-  if((bf = child->balanceFactor)==1)
-  {
-    if((bf = grandchild->balanceFactor)==0)
-    {
-      node->balanceFactor = 0;
-      child->balanceFactor = 0;
-      grandchild->balanceFactor = 0;
-    }
-    else if((bf = grandchild->balanceFactor)==1)
-    {
-      node->balanceFactor = 0;
-      child->balanceFactor = -1;
-      grandchild->balanceFactor = 0;
-    }
-    else if((bf = grandchild->balanceFactor)==-1)
-    {
-      node->balanceFactor = 1;
-      child->balanceFactor = 0;
-      grandchild->balanceFactor = 0;
-    }
-   *rootPtr = rotateLeftRight(*rootPtr);
-   return 0;
-  }
-  else if((bf = child->balanceFactor)==0)
-  {
-    node->balanceFactor = -1;
-    child->balanceFactor = 1;
-  }
-  else if((bf = child->balanceFactor)==-1)
-  {
-    node->balanceFactor = 0;
-    child->balanceFactor = 0;
-  }
-  *rootPtr = rotateRight(*rootPtr);
-  return 0;
-}

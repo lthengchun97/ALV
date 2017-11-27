@@ -3,11 +3,11 @@
 
 #include <stdio.h>
 #include "Node.h"
+#include "rotate.h"
 
 
-Node *addNode(Node **rootPtr, Node *nodeToAdd);
-int avlBalanceRightTree(Node **rootPtr);
-int avlBalanceLeftTree(Node **rootPtr);
+//Node *addNode(Node **rootPtr, Node *nodeToAdd);
+int addNode(Node **rootPtr, Node *nodeToAdd);
 Node *removeNode(Node **rootPtr, Node *nodeToRemove);
 
 #endif // _ADDNODE_H

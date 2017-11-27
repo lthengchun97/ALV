@@ -4,9 +4,11 @@
 #include <stdio.h>
 #include "Node.h"
 #include "addnode.h"
+#include "rotate.h"
 
+Node *removeN(Node **rootPtr, int nodeToRemove);
 Node *removeNode(Node **rootPtr, Node *nodeToRemove);
-int avlBalanceLeftTree(Node **rootPtr);
-int avlBalanceRightTree(Node **rootPtr);
+Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height);
+Node *findnearest(Node *rootPtr,int *height);
 
 #endif // _REMOVENODE_H
