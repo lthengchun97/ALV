@@ -3,31 +3,33 @@
 #include <stdlib.h>
 #include "rotate.h"
 #include <stdio.h>
+#include "avlinteger.h"
 
 //recursive remove node
-Node *removeN(Node **rootPtr, int nodeToRemove)
+Node *removeN(Node **rootPtr, int nodeToRemove,compare integerCompare)
  {
    int height;
-   Node *removeN = removeN_Height(rootPtr, nodeToRemove, &height);
+   Node *removeN = removeN_Height(rootPtr, nodeToRemove, &height,integerCompare);
    return removeN;
   }
 
-Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height)
+Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height,compare integerCompare)
    {
      // height change return 1 , no height change return 0
+      int compare2 = integerCompare(nodeToRemove,(*rootPtr));
        if (*rootPtr == NULL)
          {
            return NULL;
          }
-       else if ( nodeToRemove < (*rootPtr)->data ){
-           removeN_Height(&(*rootPtr)->left, nodeToRemove,height);
+       else if ( compare2 == -1 ){
+           removeN_Height(&(*rootPtr)->left, nodeToRemove,height,integerCompare);
            if(*height == 1)
              (*rootPtr)->balanceFactor += 1;
              if((*rootPtr)->balanceFactor != 0)
              *height = 0;
           }
-       else if ( nodeToRemove > (*rootPtr)->data ){
-            removeN_Height(&(*rootPtr)->right, nodeToRemove,height);
+       else if (compare2 == 0 ){
+            removeN_Height(&(*rootPtr)->right, nodeToRemove,height,integerCompare);
             if(*height == 1)
               (*rootPtr)->balanceFactor -= 1;
               if((*rootPtr)->balanceFactor != 0)

@@ -5,10 +5,14 @@
 #include "Node.h"
 #include "addnode.h"
 #include "rotate.h"
+#include "avlinteger.h"
 
-Node *removeN(Node **rootPtr, int nodeToRemove);
-Node *removeNode(Node **rootPtr, Node *nodeToRemove);
-Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height);
+typedef int (*compare)(void *data, Node *refNode);
+
+#define avlRemoveInteger(r,n)     removeN(r,n,(compare)integerCompare);
+
+Node *removeN(Node **rootPtr, int nodeToRemove,compare integerCompare);
+Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height,compare integerCompare);
 Node *findnearest(Node *rootPtr,int *height);
 
 #endif // _REMOVENODE_H
