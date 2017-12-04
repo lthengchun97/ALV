@@ -93,6 +93,10 @@ Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height)
               else{
                  *rootPtr = *rootPtr;
                 }
+            if((*rootPtr)->balanceFactor == 0)
+            *height = 1;
+            else
+            *height = 0;
             }
             return *rootPtr;
        }
@@ -140,6 +144,10 @@ Node *findnearest(Node *rootPtr,int *height)
             else{
                *rootPtr = *rootPtr;
               }
+              if((rootPtr)->balanceFactor!=0)
+              *height = 0;
+           else
+             *height = 1;
             }
         return current;
       }
