@@ -326,21 +326,21 @@ void test_add_node_to_the_left(void){
    void test_compare_cristiano_with_cristiano_return_0(void)
    {
      char *Cristiano = "Cristiano";
-     StringNode *nodeCr = &nodeCristiano;
+     Node *nodeCr = (Node*)&nodeCristiano;
      TEST_ASSERT_EQUAL(1, stringCompare(Cristiano, nodeCr));
    }
 
    void test_compare_cristiano_with_messi_return_1(void)
    {
      char *Cristiano = "Cristiano";
-     StringNode *nodeMes = &nodeMessi;
+     Node *nodeMes = (Node*)&nodeMessi;
      TEST_ASSERT_EQUAL(0, stringCompare(Cristiano, nodeMes));
    }
 
    void test_compare_rooney_with_messi_return_negative_1(void)
    {
      char *Rooney = "Rooney";
-     StringNode *nodeMes = &nodeMessi;
+     Node *nodeMes = (Node*)&nodeMessi;
      TEST_ASSERT_EQUAL(-1, stringCompare(Rooney, nodeMes));
    }
 
@@ -355,7 +355,7 @@ void test_add_node_to_the_left(void){
 
        initStringNode(&nodeVanPersie,NULL,NULL,0);
 
-       StringNode *root = NULL;
+       Node *root = NULL;
        avlAddString(&root,&nodeVanPersie);
        //avlAddString(&root,&nodeRooney);
        TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);

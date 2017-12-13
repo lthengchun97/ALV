@@ -10,8 +10,10 @@ int integerCompare(int data, Node *refNode){
   return 1;
 }
 
-int stringCompare(char* data,StringNode *refNode){
-  int result = strcmp(data, (refNode)->data);
+int stringCompare(char* data,Node *refNode){
+  StringNode *refN = (StringNode*)refNode;
+  //refN->data=refNode->data;
+  int result = strcmp(data, (refN)->data);
   if (result > 0)
   {
     return -1;

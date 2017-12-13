@@ -7,7 +7,6 @@
 #include "avlinteger.h"
 
 typedef int (*compare)(void *data, Node *refNode);
-typedef int (*compare1)(void *data, StringNode *refNode);
 
 #define avlAddInteger(r,n)     addNode(r,n,(compare)integerCompare);
 #define avlAddString(r,n)      addNode((Node **)r,(Node *)n,(compare)stringCompare);

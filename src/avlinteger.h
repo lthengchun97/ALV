@@ -4,6 +4,6 @@
 #include "Node.h"
 
 int integerCompare(int data,Node *refNode);
-int stringCompare(char* data,StringNode *refNode);
+int stringCompare(char* data,Node *refNode);
 
 #endif // _AVLINTEGER_H
