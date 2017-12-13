@@ -11,6 +11,7 @@
 void setUp(void)
 {
   initData();
+  initStrData();
 }
 
 void tearDown(void)
@@ -320,4 +321,45 @@ void test_add_node_to_the_left(void){
         TEST_ASSERT_EQUAL_NODE(&node40,NULL,-1,&node60);
         TEST_ASSERT_EQUAL_NODE(&node75,&node100,0,&node80);
         TEST_ASSERT_EQUAL_NODE(&node60,&node80,0,&node70);
+   }
+
+   void test_compare_cristiano_with_cristiano_return_0(void)
+   {
+     char *Cristiano = "Cristiano";
+     StringNode *nodeCr = &nodeCristiano;
+     TEST_ASSERT_EQUAL(1, stringCompare(Cristiano, nodeCr));
+   }
+
+   void test_compare_cristiano_with_messi_return_1(void)
+   {
+     char *Cristiano = "Cristiano";
+     StringNode *nodeMes = &nodeMessi;
+     TEST_ASSERT_EQUAL(0, stringCompare(Cristiano, nodeMes));
+   }
+
+   void test_compare_rooney_with_messi_return_negative_1(void)
+   {
+     char *Rooney = "Rooney";
+     StringNode *nodeMes = &nodeMessi;
+     TEST_ASSERT_EQUAL(-1, stringCompare(Rooney, nodeMes));
+   }
+
+   /**
+   *        NULL       ->         VanPersie
+   *
+   *
+   *
+   **/
+   void test_insert_rooney(void)
+   {
+
+       initStringNode(&nodeVanPersie,NULL,NULL,0);
+
+       StringNode *root = NULL;
+       avlAddString(&root,&nodeVanPersie);
+       //avlAddString(&root,&nodeRooney);
+       TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
+       TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.left);
+       TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
+       TEST_ASSERT_EQUAL(0,nodeVanPersie.balanceFactor);
    }

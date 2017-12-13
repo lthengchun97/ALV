@@ -5,11 +5,30 @@ extern Node node45,node50,node55,node70;
 extern Node node100;
 extern Node node60,node65,node75,node80,node85,node90,node95;
 
-void initNode(Node *node,Node *left,Node *right, int bf){
+extern StringNode nodeCristiano,nodeMessi,nodeVanPersie,nodeRooney,nodeDeGea;
+
+void initNode(Node *node,Node *left,Node *right, int bf)
+{
   node->left = left;
   node->right = right;
   node->balanceFactor = bf;
 }
+
+void initStringNode(StringNode *node,StringNode *left,StringNode *right, int bf)
+{
+  node->left = left;
+  node->right = right;
+  node->balanceFactor = bf;
+}
+
+void initStrData(void){
+  nodeCristiano.data = "Cristiano";
+  nodeMessi.data = "Messi";
+  nodeVanPersie.data = "VanPersie";
+  nodeRooney.data ="Rooney";
+  nodeDeGea.data = "DeGea";
+}
+
 void initData(void)
 {
   node1.data =1;

@@ -16,6 +16,7 @@ typedef struct StringNode StringNode;
 struct StringNode {
   StringNode *left;
   StringNode *right;
+  int balanceFactor;
   char *data;
 };
 
