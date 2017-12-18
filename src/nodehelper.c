@@ -31,25 +31,25 @@ void initStrData(void){
 
 void initData(void)
 {
-  node1.data =1;
-  node5.data =5;
-  node10.data =10;
-  node15.data =15;
-  node20.data =20;
-  node25.data =25;
-  node30.data =30;
-  node35.data =35;
-  node40.data =40;
-  node45.data =45;
-  node50.data =50;
-  node55.data =55;
-  node60.data=60;
-  node65.data=65;
-  node70.data= 70;
-  node75.data=75;
-  node80.data=80;
-  node95.data=85;
-  node90.data=90;
-  node95.data=95;
-  node100.data=100;
+  node1.data =(int *)1;
+  node5.data =(int *)5;
+  node10.data =(int *)10;
+  node15.data =(int *)15;
+  node20.data =(int *)20;
+  node25.data =(int *)25;
+  node30.data =(int *)30;
+  node35.data =(int *)35;
+  node40.data =(int *)40;
+  node45.data =(int *)45;
+  node50.data =(int *)50;
+  node55.data =(int *)55;
+  node60.data=(int *)60;
+  node65.data=(int *)65;
+  node70.data=(int *)70;
+  node75.data=(int *)75;
+  node80.data=(int *)80;
+  node95.data=(int *)85;
+  node90.data=(int *)90;
+  node95.data=(int *)95;
+  node100.data=(int *)100;
 }

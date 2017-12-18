@@ -3,17 +3,17 @@
 #include <stdlib.h>
 #include "rotate.h"
 #include <stdio.h>
-#include "avlinteger.h"
+#include "avlcompare.h"
 
 //recursive remove node
-Node *removeN(Node **rootPtr, int nodeToRemove,compare integerCompare)
+Node *removeN(Node **rootPtr, void* nodeToRemove,compare integerCompare)
  {
    int height;
    Node *removeN = removeN_Height(rootPtr, nodeToRemove, &height,integerCompare);
    return removeN;
   }
 
-Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height,compare integerCompare)
+Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare integerCompare)
    {
      // height change return 1 , no height change return 0
       int compare2 = integerCompare(nodeToRemove,(*rootPtr));
@@ -28,7 +28,7 @@ Node *removeN_Height(Node **rootPtr, int nodeToRemove,int *height,compare intege
              if((*rootPtr)->balanceFactor != 0)
              *height = 0;
           }
-       else if (compare2 == 0 ){
+       else if (compare2 == 1 ){
             removeN_Height(&(*rootPtr)->right, nodeToRemove,height,integerCompare);
             if(*height == 1)
               (*rootPtr)->balanceFactor -= 1;

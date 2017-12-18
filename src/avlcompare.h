@@ -1,5 +1,5 @@
-#ifndef _AVLINTEGER_H
-#define _AVLINTEGER_H
+#ifndef _AVLCOMPARE_H
+#define _AVLCOMPARE_H
 
 #include "Node.h"
 

@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "Node.h"
 #include "rotate.h"
-#include "avlinteger.h"
+#include "avlcompare.h"
 
 typedef int (*compare)(void *data, Node *refNode);
 

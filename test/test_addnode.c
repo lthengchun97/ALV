@@ -5,7 +5,7 @@
 #include "rotate.h"
 #include "nodehelper.h"
 #include "nodeverifier.h"
-#include "avlinteger.h"
+#include "avlcompare.h"
 
 
 void setUp(void)
@@ -327,21 +327,21 @@ void test_add_node_to_the_left(void){
    {
      char *Cristiano = "Cristiano";
      Node *nodeCr = (Node*)&nodeCristiano;
-     TEST_ASSERT_EQUAL(1, stringCompare(Cristiano, nodeCr));
+     TEST_ASSERT_EQUAL(0, stringCompare(Cristiano, nodeCr));
    }
 
-   void test_compare_cristiano_with_messi_return_1(void)
+   void test_compare_cristiano_with_messi_return_negative_1(void)
    {
      char *Cristiano = "Cristiano";
      Node *nodeMes = (Node*)&nodeMessi;
-     TEST_ASSERT_EQUAL(0, stringCompare(Cristiano, nodeMes));
+     TEST_ASSERT_EQUAL(-1, stringCompare(Cristiano, nodeMes));
    }
 
-   void test_compare_rooney_with_messi_return_negative_1(void)
+   void test_compare_rooney_with_messi_return_1(void)
    {
      char *Rooney = "Rooney";
      Node *nodeMes = (Node*)&nodeMessi;
-     TEST_ASSERT_EQUAL(-1, stringCompare(Rooney, nodeMes));
+     TEST_ASSERT_EQUAL(1, stringCompare(Rooney, nodeMes));
    }
 
    /**
@@ -350,7 +350,7 @@ void test_add_node_to_the_left(void){
    *
    *
    **/
-   void test_insert_rooney(void)
+   void test_insert_van_persie(void)
    {
 
        initStringNode(&nodeVanPersie,NULL,NULL,0);
@@ -362,4 +362,16 @@ void test_add_node_to_the_left(void){
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.left);
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
        TEST_ASSERT_EQUAL(0,nodeVanPersie.balanceFactor);
+   }
+
+   void test_insert_rooney(void)
+   {
+       initStringNode(&nodeVanPersie,NULL,NULL,0);
+
+       StringNode *root = &nodeVanPersie;
+       avlAddString(&root,&nodeMessi);
+       TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
+       TEST_ASSERT_EQUAL_PTR(&nodeMessi,nodeVanPersie.left);
+       TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
+       TEST_ASSERT_EQUAL(-1,nodeVanPersie.balanceFactor);
    }

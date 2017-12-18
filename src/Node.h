@@ -9,7 +9,7 @@ struct Node{
   Node *left;                       //Must be a pointer because its pointing to another Node
   Node *right;
   int balanceFactor;
-  uint32_t data;
+  void* data;
 };
 
 typedef struct StringNode StringNode;

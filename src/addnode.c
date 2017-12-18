@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "rotate.h"
-#include "avlinteger.h"
+#include "avlcompare.h"
 
 
 // add node with considering the height
@@ -27,7 +27,7 @@ int addNode(Node **rootPtr, Node *nodeToAdd, compare integerCompare){
       (*rootPtr)->balanceFactor =(*rootPtr)->balanceFactor;
 
       }
-      else if (compare1 == 0)
+      else if (compare1 == 1)
       {
       height =addNode(&(*rootPtr)->right,nodeToAdd,integerCompare);
         if(height==1){

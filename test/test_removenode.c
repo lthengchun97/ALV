@@ -4,7 +4,7 @@
 #include "nodeverifier.h"
 #include <stdio.h>
 #include "removenode.h"
-#include "avlinteger.h"
+#include "avlcompare.h"
 
 
 void setUp(void)
@@ -523,17 +523,27 @@ void test_remove_testing(void){
   initNode(&node45,NULL,NULL,0);
   initNode(&node60,NULL,NULL,0);
 
-
   Node *root = &node40;
   avlRemoveInteger(&root,40);
   TEST_ASSERT_EQUAL_PTR(&node45,root);
-  TEST_ASSERT_EQUAL_NODE(&node20,&node55,0,&node45);
-  TEST_ASSERT_EQUAL_NODE(&node50,&node60,0,&node55);
-  TEST_ASSERT_EQUAL_NODE(&node10,NULL,-1,&node20);
-  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node10);
-  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node50);
-  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node60);
-
+  TEST_ASSERT_EQUAL_PTR(&node50,node55.left);
+  TEST_ASSERT_EQUAL_PTR(&node60,node55.right);
+  TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
+  TEST_ASSERT_EQUAL_PTR(NULL,node20.right);
+  TEST_ASSERT_EQUAL_PTR(&node20,node45.left);
+  TEST_ASSERT_EQUAL_PTR(&node50,node45.right);
+  TEST_ASSERT_EQUAL_PTR(NULL,node10.left);
+  TEST_ASSERT_EQUAL_PTR(NULL,node10.right);
+  TEST_ASSERT_EQUAL_PTR(NULL,node50.left);
+  TEST_ASSERT_EQUAL_PTR(NULL,node50.right);
+  TEST_ASSERT_EQUAL_PTR(NULL,node60.left);
+  TEST_ASSERT_EQUAL_PTR(NULL,node60.right);
+  TEST_ASSERT_EQUAL(0,node10.balanceFactor);
+  TEST_ASSERT_EQUAL(0,node50.balanceFactor);
+  TEST_ASSERT_EQUAL(0,node60.balanceFactor);
+  TEST_ASSERT_EQUAL(0,node55.balanceFactor);
+  TEST_ASSERT_EQUAL(-1,node20.balanceFactor);
+  TEST_ASSERT_EQUAL(0,node45.balanceFactor);
 }
 
 
