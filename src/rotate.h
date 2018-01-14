@@ -2,6 +2,8 @@
 #define _ROTATE_H
 
 #include "Node.h"
+#include "Exception.h"
+#include "CException.h"
 
 Node *rotateLeft(Node *node);
 Node *rotateRight(Node *node);

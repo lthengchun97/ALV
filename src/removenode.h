@@ -7,6 +7,9 @@
 #include "rotate.h"
 #include "avlcompare.h"
 #include "string.h"
+#include "Exception.h"
+#include "CException.h"
+
 
 typedef int (*compare)(void *data, Node *refNode);
 

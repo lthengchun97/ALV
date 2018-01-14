@@ -5,7 +5,10 @@
 #include <stdio.h>
 #include "removenode.h"
 #include "avlcompare.h"
+#include "Exception.h"
+#include "CException.h"
 
+CEXCEPTION_T ex;
 void setUp(void)
 {
   initStrData();

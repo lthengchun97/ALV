@@ -4,8 +4,10 @@
 #include "nodeverifier.h"
 #include <stdio.h>
 #include "addnode.h"
+#include "Exception.h"
+#include "CException.h"
 
-
+CEXCEPTION_T ex;
 void setUp(void)
 {
   initData();

@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include "rotate.h"
 #include "avlcompare.h"
-
+#include "Exception.h"
+#include "CException.h"
 
 // add node with considering the height
 int addNode(Node **rootPtr, Node *nodeToAdd, compare integerCompare){
@@ -37,6 +38,9 @@ int addNode(Node **rootPtr, Node *nodeToAdd, compare integerCompare){
           }
         else
           (*rootPtr)->balanceFactor =(*rootPtr)->balanceFactor;
+      }
+      else{
+        Throw(createException("The node to add has already existed", NODE_ADD_EXIST));
       }
     }
     if((*rootPtr)->balanceFactor >= 2)

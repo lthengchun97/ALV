@@ -6,8 +6,10 @@
 #include "nodehelper.h"
 #include "nodeverifier.h"
 #include "avlcompare.h"
+#include "Exception.h"
+#include "CException.h"
 
-
+CEXCEPTION_T ex;
 void setUp(void)
 {
   initData();
@@ -29,8 +31,12 @@ void test_insert_left_with_10(void)
 {
     Node *root = &node20;
     initNode(&node20,NULL,&node30,1);
-
-    avlAddInteger(&root,&node10);
+    Try{
+      avlAddInteger(&root,&node10);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_PTR(&node20,root);
     TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
     TEST_ASSERT_EQUAL_PTR(&node30,node20.right);
@@ -53,8 +59,12 @@ void test_add_node_to_the_right(void){
   initNode(&node10,NULL,NULL,0);
   initNode(&node30,NULL,NULL,0);
   initNode(&node20,&node10,&node30,0);
-
+  Try{
   avlAddInteger(&root,&node40);
+  }
+  Catch(ex){
+    dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(&node40,node30.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node30.left);
@@ -82,8 +92,12 @@ void test_add_node_to_the_left(void){
   initNode(&node10,NULL,NULL,0);
   initNode(&node30,NULL,NULL,0);
   initNode(&node20,&node10,&node30,0);
-
+  Try{
   avlAddInteger(&root,&node5);
+}
+Catch(ex){
+dumpException(ex);
+}
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(NULL,node30.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node30.left);
@@ -115,8 +129,12 @@ void test_add_node_to_the_left(void){
      initNode(&node30,&node25,&node40,0);
      initNode(&node25,NULL,NULL,0);
      initNode(&node40,NULL,NULL,0);
-
+     Try{
      avlAddInteger(&root,&node55);
+   }
+   Catch(ex){
+   dumpException(ex);
+   }
      TEST_ASSERT_EQUAL_PTR(&node30,root);
      TEST_ASSERT_EQUAL_PTR(&node55,node40.right);
      TEST_ASSERT_EQUAL(0,node20.balanceFactor);
@@ -143,7 +161,12 @@ void test_add_node_to_the_left(void){
        initNode(&node40,&node30,NULL,-1);
 
        Node *root = &node40;
+       Try{
        avlAddInteger(&root,&node20);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
        TEST_ASSERT_EQUAL_PTR(&node30,root);
        TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
        TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node20);
@@ -170,7 +193,12 @@ void test_add_node_to_the_left(void){
         initNode(&node50,&node45,&node60,0);
 
         Node *root = &node90;
+        Try{
         avlAddInteger(&root,&node70);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
         TEST_ASSERT_EQUAL_PTR(&node60,root);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node45);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node55);
@@ -203,7 +231,12 @@ void test_add_node_to_the_left(void){
         initNode(&node50,&node45,&node60,0);
 
         Node *root = &node90;
+        Try{
         avlAddInteger(&root,&node55);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
         TEST_ASSERT_EQUAL_PTR(&node60,root);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node45);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node55);
@@ -232,7 +265,12 @@ void test_add_node_to_the_left(void){
         initNode(&node50,&node45,NULL,-1);
 
         Node *root = &node90;
+        Try{
         avlAddInteger(&root,&node60);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
         TEST_ASSERT_EQUAL_PTR(&node90,root);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node45);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node60);
@@ -256,7 +294,12 @@ void test_add_node_to_the_left(void){
        initNode(&node40,NULL,&node50,1);
 
        Node *root = &node40;
+       Try{
        avlAddInteger(&root,&node100);
+     }
+     Catch(ex){
+     dumpException(ex);
+     }
        TEST_ASSERT_EQUAL_PTR(&node50,root);
        TEST_ASSERT_EQUAL_NODE(&node40,&node100,0,&node50);
        TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
@@ -283,7 +326,12 @@ void test_add_node_to_the_left(void){
         initNode(&node20,&node15,&node40,1);
 
         Node *root = &node20;
+        Try{
         avlAddInteger(&root,&node30);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
         TEST_ASSERT_EQUAL_PTR(&node35,root);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node50);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node30);
@@ -312,7 +360,12 @@ void test_add_node_to_the_left(void){
         initNode(&node60,&node40,&node80,1);
 
         Node *root = &node60;
+        Try{
         avlAddInteger(&root,&node75);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
         TEST_ASSERT_EQUAL_PTR(&node70,root);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
         TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node65);
@@ -321,57 +374,4 @@ void test_add_node_to_the_left(void){
         TEST_ASSERT_EQUAL_NODE(&node40,NULL,-1,&node60);
         TEST_ASSERT_EQUAL_NODE(&node75,&node100,0,&node80);
         TEST_ASSERT_EQUAL_NODE(&node60,&node80,0,&node70);
-   }
-
-   void test_compare_cristiano_with_cristiano_return_0(void)
-   {
-     char *Cristiano = "Cristiano";
-     Node *nodeCr = (Node*)&nodeCristiano;
-     TEST_ASSERT_EQUAL(0, stringCompare(Cristiano, nodeCr));
-   }
-
-   void test_compare_cristiano_with_messi_return_negative_1(void)
-   {
-     char *Cristiano = "Cristiano";
-     Node *nodeMes = (Node*)&nodeMessi;
-     TEST_ASSERT_EQUAL(-1, stringCompare(Cristiano, nodeMes));
-   }
-
-   void test_compare_rooney_with_messi_return_1(void)
-   {
-     char *Rooney = "Rooney";
-     Node *nodeMes = (Node*)&nodeMessi;
-     TEST_ASSERT_EQUAL(1, stringCompare(Rooney, nodeMes));
-   }
-
-   /**
-   *        NULL       ->         VanPersie
-   *
-   *
-   *
-   **/
-   void test_insert_van_persie(void)
-   {
-
-       initStringNode(&nodeVanPersie,NULL,NULL,0);
-
-       Node *root = NULL;
-       avlAddString(&root,&nodeVanPersie);
-       //avlAddString(&root,&nodeRooney);
-       TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
-       TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.left);
-       TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
-       TEST_ASSERT_EQUAL(0,nodeVanPersie.balanceFactor);
-   }
-
-   void test_insert_rooney(void)
-   {
-       initStringNode(&nodeVanPersie,NULL,NULL,0);
-
-       StringNode *root = &nodeVanPersie;
-       avlAddString(&root,&nodeMessi);
-       TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
-       TEST_ASSERT_EQUAL_PTR(&nodeMessi,nodeVanPersie.left);
-       TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
-       TEST_ASSERT_EQUAL(-1,nodeVanPersie.balanceFactor);
    }
