@@ -10,7 +10,7 @@
 #include "Exception.h"
 #include "CException.h"
 
-
+#define DATA_ERROR 5
 typedef int (*compare)(void *data, Node *refNode);
 
 #define avlRemoveInteger(r,n)     removeN((Node **)r,(int *)n,(compare)integerCompare);

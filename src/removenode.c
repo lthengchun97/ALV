@@ -22,6 +22,9 @@ Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare inte
            return NULL;
          }
        else if ( compare2 == -1 ){
+         if((*rootPtr)->left == NULL){
+           Throw(createException("Invalid data",DATA_ERROR));
+         }
            removeN_Height(&(*rootPtr)->left, nodeToRemove,height,integerCompare);
            if(*height == 1)
              (*rootPtr)->balanceFactor += 1;
@@ -29,6 +32,9 @@ Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare inte
              *height = 0;
           }
        else if (compare2 == 1 ){
+         if((*rootPtr)->right == NULL){
+           Throw(createException("Invalid data",DATA_ERROR));
+         }
             removeN_Height(&(*rootPtr)->right, nodeToRemove,height,integerCompare);
             if(*height == 1)
               (*rootPtr)->balanceFactor -= 1;

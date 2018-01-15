@@ -23,7 +23,12 @@ void test_remove_cristiano(void)
   initStringNode(&nodeCristiano,NULL,NULL,0);
 
   StringNode *root = &nodeCristiano;
+  Try{
   avlRemoveString(&root,"Cristiano");
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(NULL,root);
   TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&nodeCristiano);
 }

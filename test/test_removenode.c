@@ -30,8 +30,12 @@ void test_remove_node_30(void){
   initNode(&node10,NULL,NULL,0);
   initNode(&node30,NULL,NULL,0);
   initNode(&node20,&node10,&node30,0);
-
+  Try{
   avlRemoveInteger(&root,30);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
   TEST_ASSERT_EQUAL_PTR(NULL,node20.right);
@@ -55,8 +59,12 @@ void test_remove_node_10(void){
   initNode(&node10,NULL,NULL,0);
   initNode(&node30,NULL,NULL,0);
   initNode(&node20,&node10,&node30,0);
-
+  Try{
   avlRemoveInteger(&root,10);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(NULL,node20.left);
   TEST_ASSERT_EQUAL_PTR(&node30,node20.right);
@@ -77,8 +85,12 @@ void test_remove_node_10(void){
 void test_remove_node_20(void){
   Node *root = &node20;
   initNode(&node20,NULL,NULL,0);
-
+  Try{
   avlRemoveInteger(&root,20);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(NULL,root);
 }
 
@@ -94,7 +106,12 @@ void test_remove_node_30_and_left_40_only(void){
     initNode(&node40,&node30,NULL,-1);
 
     Node *root = &node40;
+    Try{
     avlRemoveInteger(&root,40);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_PTR(&node30,root);
     TEST_ASSERT_EQUAL_PTR(NULL,node30.left);
     TEST_ASSERT_EQUAL_PTR(NULL,node30.right);
@@ -113,7 +130,12 @@ void test_remove_30_and_left_40_only(void){
     initNode(&node40,&node30,NULL,-1);
 
     Node *root = &node40;
+    Try{
     avlRemoveInteger(&root,30);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_PTR(&node40,root);
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
 }
@@ -133,8 +155,12 @@ void test_remove_node_20_replace_by_node_30(void){
   initNode(&node30,NULL,&node40,1);
   initNode(&node20,&node10,&node30,1);
   initNode(&node40,NULL,NULL,0);
-
+  Try{
   avlRemoveInteger(&root,20);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node30,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node30.left);
   TEST_ASSERT_EQUAL_PTR(&node40,node30.right);
@@ -162,8 +188,12 @@ void test_remove_node_30_replace_by_node_40(void){
   initNode(&node30,NULL,&node40,1);
   initNode(&node20,&node10,&node30,1);
   initNode(&node40,NULL,NULL,0);
-
+  Try{
   avlRemoveInteger(&root,30);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
   TEST_ASSERT_EQUAL_PTR(&node40,node20.right);
@@ -191,8 +221,12 @@ void test_remove_node_30_replace_by_node_40_v2(void){
   initNode(&node20,&node10,&node30,1);
   initNode(&node40,NULL,NULL,0);
   initNode(&node25,NULL,NULL,0);
-
+  Try{
   avlRemoveInteger(&root,30);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
   TEST_ASSERT_EQUAL_PTR(&node40,node20.right);
@@ -224,8 +258,12 @@ void test_remove_node_20_replace_by_node_25(void){
   initNode(&node20,&node10,&node30,1);
   initNode(&node40,NULL,NULL,0);
   initNode(&node25,NULL,NULL,0);
-
+  Try{
   avlRemoveInteger(&root,20);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node25,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node25.left);
   TEST_ASSERT_EQUAL_PTR(&node30,node25.right);
@@ -256,8 +294,12 @@ void test_remove_node_60_and_rotate_right(void){
   initNode(&node30,&node15,NULL,-1);
   initNode(&node40,&node30,&node60,-1);
   initNode(&node60,NULL,NULL,0);
-
+  Try{
   avlRemoveInteger(&root,60);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node30,root);
   TEST_ASSERT_EQUAL_PTR(NULL,node15.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node15.left);
@@ -285,10 +327,13 @@ void test_remove_80_and_rotate_right(void){
     initNode(&node80,NULL,NULL,0);
     initNode(&node35,NULL,NULL,0);
     initNode(&node10,NULL,NULL,0);
-
-
     Node *root = &node40;
+    Try{
     avlRemoveInteger(&root,80);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_PTR(&node30,root);
     TEST_ASSERT_EQUAL_NODE(&node35,NULL,-1,&node40);
     TEST_ASSERT_EQUAL_NODE(&node10,&node40,1,&node30);
@@ -315,7 +360,12 @@ void test_remove_100_and_rotate_left_right(void){
      initNode(&node60,NULL,&node70,1);
 
      Node *root = &node90;
+     Try{
      avlRemoveInteger(&root,100);
+    }
+      Catch(ex){
+      dumpException(ex);
+      }
      TEST_ASSERT_EQUAL_PTR(&node60,root);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node45);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node70);
@@ -347,7 +397,13 @@ void test_remove_100(void){
   initNode(&node50,&node45,&node60,1);
   initNode(&node60,&node55,&node70,0);
 
+
+  Try{
   avlRemoveInteger(&root,100);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(root,&node60);
   TEST_ASSERT_EQUAL_PTR(NULL,node45.left);
   TEST_ASSERT_EQUAL_PTR(NULL,node45.right);
@@ -392,7 +448,12 @@ void test_remove_node_20_replace_by_node_25_v2(void){
   initNode(&node5,NULL,NULL,0);
   initNode(&node50,NULL,NULL,0);
 
+  Try{
   avlRemoveInteger(&root,20);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node25,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node25.left);
   TEST_ASSERT_EQUAL_PTR(&node30,node25.right);
@@ -442,7 +503,12 @@ void test_remove_given_Avl_tree_remove_60_test2(void){
   initNode(&node100,NULL,NULL,0);
 
   Node *root = &node60;
+  Try{
   avlRemoveInteger(&root,40);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node60,root);
   TEST_ASSERT_EQUAL_PTR(&node20,node30.left);
   TEST_ASSERT_EQUAL_PTR(&node50,node30.right);
@@ -493,7 +559,12 @@ void test_noderemove_remove_with_right_value_is_NULL5(void)
     initNode(&node10,NULL,NULL,0);
     initNode(&node35,NULL,NULL,0);
     initNode(&node55,NULL,NULL,0);
+    Try{
     avlRemoveInteger(&root,40);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_NODE(&node20,&node50,0,&node30);
     TEST_ASSERT_EQUAL_NODE(&node10,NULL,-1,&node20);
     TEST_ASSERT_EQUAL_NODE(&node35,&node55,0,&node50);
@@ -526,7 +597,12 @@ void test_remove_testing(void){
   initNode(&node60,NULL,NULL,0);
 
   Node *root = &node40;
+  Try{
   avlRemoveInteger(&root,40);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node45,root);
   TEST_ASSERT_EQUAL_PTR(&node50,node55.left);
   TEST_ASSERT_EQUAL_PTR(&node60,node55.right);
@@ -577,7 +653,12 @@ void test_remove_given_Avl_tree_remove_60_test3(void){
   initNode(&node100,NULL,NULL,0);
 
   Node *root = &node60;
+  Try{
   avlRemoveInteger(&root,40);
+  }
+  Catch(ex){
+  dumpException(ex);
+  }
   TEST_ASSERT_EQUAL_PTR(&node60,root);
   TEST_ASSERT_EQUAL_NODE(&node30,&node90,0,&node60);
   TEST_ASSERT_EQUAL_NODE(&node20,&node50,0,&node30);
@@ -615,7 +696,12 @@ void test_remove_given_Avl_tree_remove_15_then_rotaterightleft_condition3_(void)
      initNode(&node20,&node15,NULL,-1);
 
      Node *root = &node30;
+     Try{
      avlRemoveInteger(&root,15);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
      TEST_ASSERT_EQUAL_PTR(&node40,root);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node20);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node35);
@@ -649,7 +735,12 @@ void test_remove_given_Avl_tree_remove_15_then_rotaterightleft_condition2_(void)
      initNode(&node20,&node15,NULL,-1);
 
      Node *root = &node30;
+     Try{
      avlRemoveInteger(&root,15);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
      TEST_ASSERT_EQUAL_PTR(&node40,root);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node20);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node35);
@@ -683,7 +774,12 @@ void test_remove_given_Avl_tree_remove_15_then_rotaterightleft_condition1_(void)
      initNode(&node20,&node15,NULL,-1);
 
      Node *root = &node30;
+     Try{
      avlRemoveInteger(&root,15);
+   }
+   Catch(ex){
+   dumpException(ex);
+   }
      TEST_ASSERT_EQUAL_PTR(&node40,root);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node20);
      TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node35);
@@ -711,7 +807,12 @@ void test_remove_rotateleft2(void){
     initNode(&node40,&node30,&node50,1);
 
     Node *root = &node40;
+    Try{
     avlRemoveInteger(&root,30);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_PTR(&node50,root);
     TEST_ASSERT_EQUAL_NODE(&node40,&node100,-1,&node50);
     TEST_ASSERT_EQUAL_NODE(NULL,&node45,1,&node40);
@@ -737,10 +838,14 @@ void test_remove_rotateleft1(void){
     initNode(&node40,&node30,&node50,1);
 
     Node *root = &node40;
+    Try{
     avlRemoveInteger(&root,30);
+    }
+    Catch(ex){
+    dumpException(ex);
+    }
     TEST_ASSERT_EQUAL_PTR(&node50,root);
     TEST_ASSERT_EQUAL_NODE(&node40,&node100,0,&node50);
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node100);
-
 }

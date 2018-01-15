@@ -54,7 +54,12 @@ void tearDown(void)
        initStringNode(&nodeVanPersie,NULL,NULL,0);
 
        Node *root = NULL;
+       Try{
        avlAddString(&root,&nodeVanPersie);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
        //avlAddString(&root,&nodeRooney);
        TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.left);
@@ -67,7 +72,12 @@ void tearDown(void)
        initStringNode(&nodeVanPersie,NULL,NULL,0);
 
        StringNode *root = &nodeVanPersie;
+       Try{
        avlAddString(&root,&nodeMessi);
+      }
+      Catch(ex){
+      dumpException(ex);
+      }
        TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
        TEST_ASSERT_EQUAL_PTR(&nodeMessi,nodeVanPersie.left);
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
