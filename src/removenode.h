@@ -18,6 +18,6 @@ typedef int (*compare)(void *data, Node *refNode);
 
 Node *removeN(Node **rootPtr, void* nodeToRemove,compare integerCompare);
 Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare integerCompare);
-Node *findnearest(Node *rootPtr,int *height);
+Node *findnearest(Node **rootPtr,int *height);
 
 #endif // _REMOVENODE_H

@@ -60,7 +60,6 @@ void tearDown(void)
       Catch(ex){
       dumpException(ex);
       }
-       //avlAddString(&root,&nodeRooney);
        TEST_ASSERT_EQUAL_PTR(&nodeVanPersie,root);
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.left);
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
@@ -74,7 +73,7 @@ void tearDown(void)
        StringNode *root = &nodeVanPersie;
        Try{
        avlAddString(&root,&nodeMessi);
-      }
+       }
       Catch(ex){
       dumpException(ex);
       }
@@ -82,4 +81,24 @@ void tearDown(void)
        TEST_ASSERT_EQUAL_PTR(&nodeMessi,nodeVanPersie.left);
        TEST_ASSERT_EQUAL_PTR(NULL,nodeVanPersie.right);
        TEST_ASSERT_EQUAL(-1,nodeVanPersie.balanceFactor);
+   }
+
+   void test_insert_string_one_by_one(void)
+   {
+     initStringNode(&nodeVanPersie,NULL,NULL,0);
+     initStringNode(&nodeCristiano,NULL,NULL,0);
+     initStringNode(&nodeMessi,NULL,NULL,0);
+     initStringNode(&nodeRooney,NULL,NULL,0);
+
+     StringNode *root = NULL;
+     avlAddString(&root,&nodeMessi);
+     avlAddString(&root,&nodeCristiano);
+     avlAddString(&root,&nodeVanPersie);
+     avlAddString(&root,&nodeRooney);
+
+     TEST_ASSERT_EQUAL_PTR(&nodeMessi,root);
+     TEST_ASSERT_EQUAL_NODE(&nodeCristiano,&nodeVanPersie,1,&nodeMessi);
+     TEST_ASSERT_EQUAL_NODE(&nodeRooney,NULL,-1,&nodeVanPersie);
+     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&nodeCristiano);
+     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&nodeRooney);
    }

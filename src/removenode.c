@@ -21,15 +21,17 @@ Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare inte
          {
            return NULL;
          }
-       else if ( compare2 == -1 ){
+      else if ( compare2 == -1 ){
          if((*rootPtr)->left == NULL){
            Throw(createException("Invalid data",DATA_ERROR));
          }
            removeN_Height(&(*rootPtr)->left, nodeToRemove,height,integerCompare);
            if(*height == 1)
              (*rootPtr)->balanceFactor += 1;
-             if((*rootPtr)->balanceFactor != 0)
-             *height = 0;
+             //if((*rootPtr)->balanceFactor != 0)
+             //*height = 0;
+           else
+           (*rootPtr)->balanceFactor = (*rootPtr)->balanceFactor;
           }
        else if (compare2 == 1 ){
          if((*rootPtr)->right == NULL){
@@ -38,8 +40,10 @@ Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare inte
             removeN_Height(&(*rootPtr)->right, nodeToRemove,height,integerCompare);
             if(*height == 1)
               (*rootPtr)->balanceFactor -= 1;
-              if((*rootPtr)->balanceFactor != 0)
-              *height = 0;
+              //if((*rootPtr)->balanceFactor != 0)
+              //*height = 0;
+              else
+              (*rootPtr)->balanceFactor = (*rootPtr)->balanceFactor;
            }
        else
        {
@@ -55,30 +59,22 @@ Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare inte
                else
                {
                 *rootPtr  = temp;
-                *height = 1;
+                //*height = 1;
               }
             }
             else
             {
-              Node* Rgrandchild = (*rootPtr)->right;
-              Node* nearestHighest = findnearest((*rootPtr)->right,height);
-
-
-              if(Rgrandchild->right != NULL)
+              Node* nearestHighest = findnearest(&(*rootPtr)->right,height);
+              if(*height == 1)
               {
-              nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor);
+                (*rootPtr)->balanceFactor -=1;
+                if((*rootPtr)->balanceFactor !=0)
+                *height = 0;
+                else
+                *height = 1;
               }
-              else
-              {
-              nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor) - 1;
-              }
-
-
-              if(*height == 0)
-                (*rootPtr)->balanceFactor -= 1;
               else
                 (*rootPtr)->balanceFactor = (*rootPtr)->balanceFactor;
-
 
 
               if(nearestHighest->right != NULL)
@@ -89,122 +85,88 @@ Node *removeN_Height(Node **rootPtr, void* nodeToRemove,int *height,compare inte
               }
               else
               {
-                //nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor);
+                nearestHighest->balanceFactor = ((*rootPtr)->balanceFactor);
                 nearestHighest->left = (*rootPtr)->left;
                 nearestHighest->right= (*rootPtr)->right;
                 (*rootPtr) = nearestHighest;
               }
-              if((*rootPtr)->balanceFactor >= 2)
-                  avlBalanceRightTree(&(*rootPtr));
-              else if((*rootPtr)->balanceFactor <= -2)
-                  avlBalanceLeftTree(&(*rootPtr));
-              else{
-                 *rootPtr = *rootPtr;
-                }
-            if((*rootPtr)->balanceFactor == 0)
-            *height = 1;
-            else
-            *height = 0;
-            }
-            return *rootPtr;
+
+       }
+     }
+     if (*rootPtr == NULL)
+       {
+         return NULL;
        }
        if((*rootPtr)->balanceFactor >= 2)
+       {
            avlBalanceRightTree(&(*rootPtr));
+           if((*rootPtr)->balanceFactor !=0)
+           *height = 0;
+           else
+           *height = 1;
+       }
        else if((*rootPtr)->balanceFactor <= -2)
-           avlBalanceLeftTree(&(*rootPtr));
+       {
+         avlBalanceLeftTree(&(*rootPtr));
+         if((*rootPtr)->balanceFactor !=0)
+         *height = 0;
+         else
+         *height = 1;
+       }
        else{
           *rootPtr = *rootPtr;
          }
-      return *rootPtr;
+         if((*rootPtr)->balanceFactor !=0)
+         *height = 0;
+         if((*rootPtr)->left == NULL && (*rootPtr)->right == NULL)
+         *height = 1;
+         return *rootPtr;
     }
 
-Node *findnearest(Node *rootPtr,int *height)
+Node *findnearest(Node **rootPtr,int *height)
  {
-    Node *temp;
-    Node *current = rootPtr->left;
-     if(current!=NULL){
-       if(current->left != NULL)
-          findnearest(rootPtr->left,height);
-      else{
-        if(rootPtr->right!=NULL)
-        {
-          if(current->right !=NULL){
-            rootPtr->left = current->right;
-            rootPtr->balanceFactor +=1;
-            current->right = NULL;
-            *height = 1;
-            if((rootPtr)->balanceFactor >= 2)
-                avlBalanceRightTree(&(rootPtr));
-            else if((rootPtr)->balanceFactor <= -2)
-                avlBalanceLeftTree(&(rootPtr));
-            else{
-               *rootPtr = *rootPtr;
-              }
-          }
-          else{
-            rootPtr->left = NULL;
-            rootPtr->balanceFactor +=1;
-            *height = 0;
-            if((rootPtr)->balanceFactor >= 2)
-                avlBalanceRightTree(&(rootPtr));
-            else if((rootPtr)->balanceFactor <= -2)
-                avlBalanceLeftTree(&(rootPtr));
-            else{
-               *rootPtr = *rootPtr;
-              }
-              if((rootPtr)->balanceFactor!=0)
-              *height = 0;
-           else
-             *height = 1;
-            }
-        return current;
-      }
-      else{
-        if(rootPtr->right!=NULL)
-        {
-          if(current->right !=NULL){
-            rootPtr->left = current->right;
-            rootPtr->balanceFactor +=1;
-            current->right = NULL;
-            *height = 1;
-            if((rootPtr)->balanceFactor >= 2)
-                avlBalanceRightTree(&(rootPtr));
-            else if((rootPtr)->balanceFactor <= -2)
-                avlBalanceLeftTree(&(rootPtr));
-            else{
-               *rootPtr = *rootPtr;
-              }
-          }
-          else{
-            rootPtr->left = NULL;
-            rootPtr->balanceFactor +=1;
-            *height = 1;
-            if((rootPtr)->balanceFactor >= 2)
-            {
-              avlBalanceRightTree(&(rootPtr));
-              if((rootPtr)->balanceFactor ==0)
-              *height = 1;
-              else
-              *height= 0;
-            }
-            else if((rootPtr)->balanceFactor <= -2)
-            {
-              avlBalanceLeftTree(&(rootPtr));
-              if((rootPtr)->balanceFactor ==0)
-              *height = 1;
-              else
-              *height= 0;
-            }
-            else{
-               *rootPtr = *rootPtr;
-              }
-            }
-        return current;
-      }
-      }
-      }
-  }
-  else
-     *height = 0;
-     return rootPtr;
+   Node *result;
+   Node *nearest = (*rootPtr)->left;
+   if(nearest != NULL)
+   {
+   if(nearest->left != NULL)
+     findnearest(&(*rootPtr)->left,height);
+     else
+     {
+       if(nearest->right != NULL)
+       {
+         (*rootPtr)->left = nearest->right;
+         (*rootPtr)->balanceFactor++;
+         nearest->right = NULL;
+         if((*rootPtr)->balanceFactor !=0)
+         *height = 0;
+         else
+         *height = 1;
+       }
+       else
+       {
+         (*rootPtr)->left = NULL;
+         (*rootPtr)->balanceFactor++;
+         if((*rootPtr)->balanceFactor >= 2)
+           avlBalanceRightTree(&(*rootPtr));
+         else if((*rootPtr)->balanceFactor <= -2)
+           avlBalanceLeftTree(&(*rootPtr));
+         else{
+           *rootPtr = *rootPtr;
+         }
+         if((*rootPtr)->balanceFactor !=0)
+         *height = 0;
+         else
+         *height = 1;
+       }
+       return nearest;
+     }
+   }
+ else
+   {
+     result = *rootPtr;
+     *height = 1;
+     *rootPtr = NULL;
+     return result;
+   }
  }

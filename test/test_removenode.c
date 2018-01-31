@@ -231,7 +231,7 @@ void test_remove_node_30_replace_by_node_40_v2(void){
   TEST_ASSERT_EQUAL_PTR(&node20,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
   TEST_ASSERT_EQUAL_PTR(&node40,node20.right);
-  TEST_ASSERT_EQUAL_PTR(&node40,node40.right);
+  TEST_ASSERT_EQUAL_PTR(NULL,node40.right);
   TEST_ASSERT_EQUAL_PTR(&node25,node40.left);
   TEST_ASSERT_EQUAL_PTR(NULL,node10.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node10.left);
@@ -457,7 +457,7 @@ void test_remove_node_20_replace_by_node_25_v2(void){
   }
   TEST_ASSERT_EQUAL_PTR(&node25,root);
   TEST_ASSERT_EQUAL_PTR(&node10,node25.left);
-  TEST_ASSERT_EQUAL_PTR(&node30,node25.right);
+  TEST_ASSERT_EQUAL_PTR(&node40,node25.right);
   TEST_ASSERT_EQUAL_PTR(&node30,node40.left);
   TEST_ASSERT_EQUAL_PTR(&node50,node40.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node30.right);
@@ -610,7 +610,7 @@ void test_remove_testing(void){
   TEST_ASSERT_EQUAL_PTR(&node10,node20.left);
   TEST_ASSERT_EQUAL_PTR(NULL,node20.right);
   TEST_ASSERT_EQUAL_PTR(&node20,node45.left);
-  TEST_ASSERT_EQUAL_PTR(&node50,node45.right);
+  TEST_ASSERT_EQUAL_PTR(&node55,node45.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node10.left);
   TEST_ASSERT_EQUAL_PTR(NULL,node10.right);
   TEST_ASSERT_EQUAL_PTR(NULL,node50.left);
@@ -901,4 +901,147 @@ void test_remove_and_add_with_one_by_one_add_and_then_remove(void){
   TEST_ASSERT_EQUAL_NODE(&node1,&node50,0,&node25);
   TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node50);
   TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node1);
+}
+
+void test_functional_test(void){
+  initNode(&node1,NULL,NULL,0);
+  initNode(&node25,NULL,NULL,0);
+  initNode(&node40,NULL,NULL,0);
+  initNode(&node50,NULL,NULL,0);
+  initNode(&node55,NULL,NULL,0);
+  initNode(&node60,NULL,NULL,0);
+  initNode(&node65,NULL,NULL,0);
+  initNode(&node75,NULL,NULL,0);
+  initNode(&node80,NULL,NULL,0);
+  initNode(&node90,NULL,NULL,0);
+  initNode(&node100,NULL,NULL,0);
+  initNode(&node120,NULL,NULL,0);
+  initNode(&node150,NULL,NULL,0);
+  initNode(&node200,NULL,NULL,0);
+  initNode(&node250,NULL,NULL,0);
+  Node *root = NULL;
+  avlAddInteger(&root,&node1);
+  avlAddInteger(&root,&node25);
+  avlAddInteger(&root,&node40);
+  avlAddInteger(&root,&node50);
+  avlAddInteger(&root,&node55);
+  avlAddInteger(&root,&node60);
+  avlAddInteger(&root,&node65);
+  avlAddInteger(&root,&node75);
+  avlAddInteger(&root,&node80);
+  avlAddInteger(&root,&node90);
+  avlAddInteger(&root,&node100);
+  avlAddInteger(&root,&node120);
+  avlAddInteger(&root,&node150);
+  avlAddInteger(&root,&node200);
+  avlAddInteger(&root,&node250);
+
+  TEST_ASSERT_EQUAL_PTR(&node75,root);
+  TEST_ASSERT_EQUAL_NODE(&node50,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_NODE(&node90,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node80,&node100,0,&node90);
+  TEST_ASSERT_EQUAL_NODE(&node150,&node250,0,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node25,&node60,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node40,0,&node25);
+  TEST_ASSERT_EQUAL_NODE(&node55,&node65,0,&node60);
+
+  avlRemoveInteger(&root,60);
+  TEST_ASSERT_EQUAL_NODE(&node50,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_NODE(&node90,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node80,&node100,0,&node90);
+  TEST_ASSERT_EQUAL_NODE(&node150,&node250,0,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node25,&node65,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node40,0,&node25);
+  //TEST_ASSERT_EQUAL_PTR(&node55,node65.left);
+  //TEST_ASSERT_EQUAL_PTR(&node65,node65.right);
+  TEST_ASSERT_EQUAL_NODE(&node55,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,150);
+  TEST_ASSERT_EQUAL_NODE(&node50,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_NODE(&node90,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node80,&node100,0,&node90);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node25,&node65,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node40,0,&node25);
+  TEST_ASSERT_EQUAL_NODE(&node55,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,25);
+  TEST_ASSERT_EQUAL_NODE(&node50,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_NODE(&node90,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node80,&node100,0,&node90);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node65,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node40);
+  TEST_ASSERT_EQUAL_NODE(&node55,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,90);
+  TEST_ASSERT_EQUAL_NODE(&node50,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_NODE(&node100,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node80,NULL,-1,&node100);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node65,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node40);
+  TEST_ASSERT_EQUAL_NODE(&node55,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,100);
+  TEST_ASSERT_EQUAL_NODE(&node50,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_PTR(&node80,node120.left);
+  TEST_ASSERT_EQUAL_PTR(&node200,node120.right);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node80);
+  TEST_ASSERT_EQUAL_NODE(&node80,&node200,1,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node65,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node40);
+  TEST_ASSERT_EQUAL_NODE(&node55,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,50);
+  TEST_ASSERT_EQUAL_NODE(&node55,&node120,0,&node75);
+  TEST_ASSERT_EQUAL_NODE(&node80,&node200,1,&node120);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node65,-1,&node55);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node40);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node65);
+
+  avlRemoveInteger(&root,75);
+  TEST_ASSERT_EQUAL_PTR(&node80,root);
+  TEST_ASSERT_EQUAL_NODE(&node55,&node200,-1,&node80);
+  TEST_ASSERT_EQUAL_NODE(&node120,&node250,0,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node65,-1,&node55);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node40);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node65);
+
+  avlRemoveInteger(&root,55);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node200,0,&node80);
+  TEST_ASSERT_EQUAL_NODE(&node120,&node250,0,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node65,0,&node40);
+
+  avlRemoveInteger(&root,80);
+  TEST_ASSERT_EQUAL_PTR(&node120,root);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node65,0,&node40);
+
+  avlRemoveInteger(&root,40);
+  TEST_ASSERT_EQUAL_NODE(&node65,&node200,0,&node120);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node250,1,&node200);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,200);
+  TEST_ASSERT_EQUAL_NODE(&node65,&node250,-1,&node120);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node65);
+
+  avlRemoveInteger(&root,250);
+  TEST_ASSERT_EQUAL_PTR(&node65,root);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node120,0,&node65);
+
+  avlRemoveInteger(&root,65);
+  TEST_ASSERT_EQUAL_PTR(&node120,root);
+  TEST_ASSERT_EQUAL_NODE(&node1,NULL,-1,&node120);
+
+  avlRemoveInteger(&root,120);
+  TEST_ASSERT_EQUAL_PTR(&node1,root);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node1);
+
+  avlRemoveInteger(&root,1);
+  TEST_ASSERT_EQUAL_PTR(NULL,root);
 }

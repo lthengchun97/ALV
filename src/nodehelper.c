@@ -2,7 +2,7 @@
 
 extern Node node1,node5,node10,node15,node20,node25,node30,node35,node40;
 extern Node node45,node50,node55,node70;
-extern Node node100;
+extern Node node100,node120,node150,node200,node250;
 extern Node node60,node65,node75,node80,node85,node90,node95;
 
 extern StringNode nodeCristiano,nodeMessi,nodeVanPersie,nodeRooney,nodeDeGea;
@@ -52,4 +52,8 @@ void initData(void)
   node90.data=(int *)90;
   node95.data=(int *)95;
   node100.data=(int *)100;
+  node120.data=(int *)120;
+  node150.data=(int *)150;
+  node200.data=(int *)200;
+  node250.data=(int *)250;
 }
