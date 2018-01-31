@@ -182,18 +182,18 @@ Node *findnearest(Node *rootPtr,int *height)
             if((rootPtr)->balanceFactor >= 2)
             {
               avlBalanceRightTree(&(rootPtr));
-              if((rootPtr)->balanceFactor !=0)
-              *height = 0;
+              if((rootPtr)->balanceFactor ==0)
+              *height = 1;
               else
-              *height= 1;
+              *height= 0;
             }
             else if((rootPtr)->balanceFactor <= -2)
             {
               avlBalanceLeftTree(&(rootPtr));
-              if((rootPtr)->balanceFactor !=0)
-              *height = 0;
+              if((rootPtr)->balanceFactor ==0)
+              *height = 1;
               else
-              *height= 1;
+              *height= 0;
             }
             else{
                *rootPtr = *rootPtr;
