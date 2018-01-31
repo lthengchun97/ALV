@@ -44,9 +44,18 @@ int addNode(Node **rootPtr, Node *nodeToAdd, compare integerCompare){
       }
     }
     if((*rootPtr)->balanceFactor >= 2)
-        avlBalanceRightTree(&(*rootPtr));
+    {
+      avlBalanceRightTree(&(*rootPtr));
+      if((*rootPtr)->balanceFactor == 0)
+      height=0;
+    }
+
     else if((*rootPtr)->balanceFactor <= -2)
+    {
         avlBalanceLeftTree(&(*rootPtr));
+        if((*rootPtr)->balanceFactor == 0)
+        height=0;
+      }
     else{
        *rootPtr = *rootPtr;
       }

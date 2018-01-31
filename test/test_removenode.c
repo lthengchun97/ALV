@@ -7,6 +7,7 @@
 #include "avlcompare.h"
 #include "Exception.h"
 #include "CException.h"
+#include "addnode.h"
 
 CEXCEPTION_T ex;
 void setUp(void)
@@ -848,4 +849,56 @@ void test_remove_rotateleft1(void){
     TEST_ASSERT_EQUAL_NODE(&node40,&node100,0,&node50);
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
     TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node100);
+}
+/*
+  NULL      --->        1       --->        1         --->          25        (continue below...)
+           add 1              add 25        \         add 40      /  \
+                                            25                  1    40
+
+ --->         25               --->          25
+ add 50     /   \             add 55        / \
+          1     40                        1   50
+                 \                            / \
+                 50                         40  55
+
+Then remove (40)        ---->               25
+        25              remove 55          / \
+      /  \                               1   50
+     1   50
+          \
+          55
+*/
+void test_remove_and_add_with_one_by_one_add_and_then_remove(void){
+  initNode(&node1,NULL,NULL,0);
+  initNode(&node25,NULL,NULL,0);
+  initNode(&node40,NULL,NULL,0);
+  initNode(&node50,NULL,NULL,0);
+  initNode(&node55,NULL,NULL,0);
+
+  Node *root = NULL;
+  avlAddInteger(&root,&node1);
+  avlAddInteger(&root,&node25);
+  avlAddInteger(&root,&node40);
+  avlAddInteger(&root,&node50);
+  avlAddInteger(&root,&node55);
+
+  TEST_ASSERT_EQUAL_PTR(&node25,root);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node1);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node40);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node55);
+  TEST_ASSERT_EQUAL_NODE(&node40,&node55,0,&node50);
+  //TEST_ASSERT_EQUAL_PTR(&node1,node25.left);
+  //TEST_ASSERT_EQUAL_PTR(&node50,node25.right);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node50,1,&node25);
+
+  avlRemoveInteger(&root,40);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node50,1,&node25);
+  TEST_ASSERT_EQUAL_NODE(NULL,&node55,1,&node50);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node1);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node55);
+
+  avlRemoveInteger(&root,55);
+  TEST_ASSERT_EQUAL_NODE(&node1,&node50,0,&node25);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node50);
+  TEST_ASSERT_EQUAL_NODE(NULL,NULL,0,&node1);
 }
